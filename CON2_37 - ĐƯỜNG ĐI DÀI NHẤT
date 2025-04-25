@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void DFS(int u, bool a[20][20], int n, int len, int &maxx) {
+    maxx = max(maxx, len); 
+    for (int i = 0; i < n; i++) {
+        if (a[u][i]) { 
+            a[u][i] = a[i][u] = false; 
+            DFS(i, a, n, len + 1, maxx); 
+            a[u][i] = a[i][u] = true; 
+        }
+    }
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int n, m; cin >> n >> m;
+		bool matranke[20][20];
+		for(int i=0;i<n;i++){
+			for(int j =0;j<n;j++){
+				matranke[i][j] = false;
+			}
+		}
+		for(int i=0;i<m;i++){
+			int x, y;
+			cin >> x >> y;
+			matranke[x][y] = true;
+			matranke[y][x] = true;
+		}
+		int maxx = 0;
+		for(int i=0;i<n;i++){
+			bool temp[20][20];
+			memcpy(temp, matranke, sizeof(temp));
+			DFS(i,temp,n,0,maxx);
+		}
+		cout << maxx << endl;
+	}
+}
