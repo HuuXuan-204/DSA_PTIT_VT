@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+void DFS(int u, bool visited[], vector< vector<int> > dsKe){
+	visited[u] = true;
+	stack<int> s;
+	s.push(u);
+	cout << u << " ";
+	while(!s.empty()){
+		int x = s.top();
+		s.pop();
+		for(int i=0;i<dsKe[x].size();i++){
+			int temp = dsKe[x][i];
+			if(!visited[temp]){
+				s.push(x);
+				s.push(temp);
+				visited[temp] = true;
+				cout << temp << " ";
+				break;
+			}
+		}
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int v, e, u; cin >> v >> e >> u;
+		bool visited[v+1];
+		for(int i=0;i<=v;i++) visited[i] = false;
+		vector< vector<int> > dsKe(v+1);
+		for(int i=0;i<e;i++){
+			int m, n; cin >> m >> n;
+			dsKe[m].push_back(n);
+			dsKe[n].push_back(m);
+		}
+		DFS(u,visited,dsKe);
+		cout << endl;
+	}
+}
