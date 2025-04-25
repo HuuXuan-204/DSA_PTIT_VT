@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int v, e, s, t;
+		cin >> v >> e >> s >> t;
+		vector< vector<int> > dsKe(v+1);
+		bool visited[v+1];
+		for(int i =0; i<=v;i++) visited[i] = false;
+		for(int i =0; i<e;i++){
+			int m, n; cin >> m >> n;
+			dsKe[m].push_back(n);
+			dsKe[n].push_back(m);
+		}
+		vector<int> path;
+		vector<int> parent(v+1,0);
+		queue<int> q;
+		q.push(s);
+		visited[s] = true;
+		while(!q.empty()){
+			int x = q.front();
+			q.pop();
+			for(int i =0;i<dsKe[x].size();i++){
+				int temp = dsKe[x][i];
+				if(!visited[temp]){
+					q.push(temp);
+					visited[temp] = true;
+					parent[temp] = x;
+				}
+			}
+		}
+		if(!visited[t]) cout << "-1" << endl;
+		else{
+			while(t != s){
+				path.push_back(t);
+				t = parent[t];
+			}
+			path.push_back(s);
+			reverse(path.begin(),path.end());
+			for(int x: path) cout << x << " ";
+			cout << endl;
+		}
+	}
+}
