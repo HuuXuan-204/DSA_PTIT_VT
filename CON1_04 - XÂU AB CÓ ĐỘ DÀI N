@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int k;
+string s;
+
+void Try(int pos) {
+    if (pos == k) {
+        cout << s << " ";
+        return;
+    }
+    s[pos] = 'A';
+    Try(pos + 1);
+    s[pos] = 'B';
+    Try(pos + 1);
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        cin >> k;
+        s = string(k, ' ');
+        Try(0);
+        cout << endl;
+    }
+}
