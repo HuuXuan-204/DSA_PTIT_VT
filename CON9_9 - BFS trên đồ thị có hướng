@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+void BFS(bool visited[],int u,vector< vector<int> > dsKe){
+	visited[u] = true;
+	queue<int> q;
+	q.push(u);
+	while(!q.empty()){
+		int x = q.front();
+		cout << x << " ";
+		q.pop();
+		for(int i = 0; i<dsKe[x].size(); i++){
+			if(!visited[dsKe[x][i]]){
+				q.push(dsKe[x][i]);
+				visited[dsKe[x][i]] = true;
+			}
+		}
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int v, e, u;
+		cin >> v >> e >> u;
+		vector< vector<int> > dsKe(v+1);
+		bool visited[v+1];
+		for(int i=0;i<=v;i++){
+			visited[i] = false;
+		}
+		for(int i =0;i<e;i++){
+			int m, n;
+			cin >> m >> n;
+			dsKe[m].push_back(n);
+		}
+		BFS(visited,u,dsKe);
+		cout << endl;
+	}
+}
