@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+string xuly(int s, int d){
+	if(s > 9 * d) return "-1";
+	if (d == 1) return to_string(s);
+	
+	string result = "";
+	for(int i = 0; i < d; i++){
+		for(int j = (i == 0 ? 1 : 0); j <= 9; j++){ 
+			if((s - j) <= 9 * (d - i - 1)){
+				result += to_string(j);
+				s -= j;  
+				break;
+			}
+		}
+	}
+	return result;
+}
+
+int main(){
+	int t; cin >> t;
+	while( t-- ){
+		int s, d; cin >> s >> d;
+		cout << xuly(s,d) << endl;
+	}
+}
