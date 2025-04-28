@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+bool isOperator(char c){
+	return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+string pre2in(string pre){
+	stack<string> stk;
+	for(int i = pre.size() - 1; i >= 0; i--){
+		char c = pre[i];
+		if(isOperator(c)){
+			string op1 = stk.top(); stk.pop();
+			string op2 = stk.top(); stk.pop();
+			string res = "("+ op1 + c + op2 + ")";
+			stk.push(res);
+		} else {
+			stk.push(string(1,c));
+		}
+	}
+	return stk.top();
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		string pre;
+		cin >> pre;
+		cout << pre2in(pre) << endl;
+	}
+}
