@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int isOperator(char c){
+	if( c == '+') return 1;
+	if( c == '-') return 2;
+	if( c == '*') return 3;
+	if( c == '/') return 4;
+	return 0;
+}
+int calPre(string pre){
+	stack<int> stk;
+	for(int i = pre.size() - 1; i >= 0; i--){
+		int oper = isOperator(pre[i]);
+		if(oper != 0){
+			int op1 = stk.top(); stk.pop();
+			int op2 = stk.top(); stk.pop();
+			int res;
+			if(oper == 1) res = op1 + op2;
+			if(oper == 2) res = op1 - op2;
+			if(oper == 3) res = op1 * op2;
+			if(oper == 4) res = op1 / op2;
+			stk.push(res);
+		}else{
+			int temp = pre[i] - '0';
+			stk.push(temp);
+		}
+	}
+	return stk.top();
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		string pre;
+		cin >> pre;
+		cout << calPre(pre) << endl;
+	}
+}
