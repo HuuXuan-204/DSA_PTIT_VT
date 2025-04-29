@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int isOperator(char c){
+	if( c == '+') return 1;
+	if( c == '-') return 2;
+	if( c == '*') return 3;
+	if( c == '/') return 4;
+	return 0;
+}
+int calPost(string post){
+	stack<int> stk;
+	for(int i = 0;i<post.size();i++){
+		char c = post[i];
+		int check = isOperator(c);
+		if(check != 0){
+			int op2 = stk.top(); stk.pop();
+			int op1 = stk.top(); stk.pop();
+			int res;
+			if( check == 1 ) res = op1 + op2;
+			if( check == 2) res = op1 - op2;
+			if( check == 3) res = op1 * op2;
+			if( check == 4) res = op1 / op2;
+			stk.push(res);
+		} else{
+			int temp = c - '0';
+			stk.push(temp);
+		}
+	}
+	return stk.top();
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		string post;
+		cin >> post;
+		cout << calPost(post) << endl;
+	}
+}
