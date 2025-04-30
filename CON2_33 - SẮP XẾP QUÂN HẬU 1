@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int cnt;
+bool cot[100], xuoi[100], nguoc[100];
+int n;
+
+void solve(int row){
+	for(int c = 0; c < n; c++){
+		if(!cot[c] && !xuoi[row-c+n] && !nguoc[row+c]){
+			cot[c] = xuoi[row-c+n] = nguoc[row+c] = true;
+			if(row == n-1){
+				cnt++;
+			}else{
+				solve(row+1);
+			}
+			cot[c] = xuoi[row-c+n] = nguoc[row+c] = false;
+		}
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		cin >> n;
+		cnt = 0;
+		for(int i = 0; i< 100;i++){
+			cot[i] = false; xuoi[i] = false; nguoc[i] = false;
+		}
+		solve(0);
+		cout << cnt << endl;
+	}
+}
