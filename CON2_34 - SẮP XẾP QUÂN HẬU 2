@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int res, maxx;
+int a[8][8];
+bool cot[20], xuoi[20], nguoc[20];
+
+void solve(int row){
+	for(int c = 0; c < 8; c++){
+		if(!cot[c] && !xuoi[row-c+8] && !nguoc[row+c]){
+			cot[c] = xuoi[row-c+8] = nguoc[row+c] = true;
+			res+= a[row][c];
+			if(row == 7){
+				maxx = max(maxx,res);
+			}else{
+				solve(row+1);
+			}
+			cot[c] = xuoi[row-c+8] = nguoc[row+c] = false;
+			res-=a[row][c];
+		}
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++) cin >> a[i][j];
+		}
+		maxx = 0, res = 0;
+		for(int i = 0; i< 20;i++){
+			cot[i] = false; xuoi[i] = false; nguoc[i] = false;
+		}
+		solve(0);
+		cout << maxx << endl;
+	}
+}
