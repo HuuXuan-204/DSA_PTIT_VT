@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector<long long> v;
+void init(){
+	for(int i = 100; i>=1; i--){
+		v.push_back(i*i*i);
+	}
+}
+
+string cal(long long n){
+	string mother = to_string(n);
+	string son;
+	int k = 0;
+	while(k < v.size() && n < v[k]) k++;
+	for(int i=k; i<v.size(); i++){
+		son = to_string(v[i]);
+		int ind = 0;
+		for(char j:mother){
+			if(j == son[ind] && ind < son.length()){
+				ind++;
+			}
+		}
+		if(ind == son.length()) return son;
+	}
+	return "-1";
+}
+int main(){
+	init();
+	int t; cin >> t;
+	while(t--){
+		long long n; cin >> n;
+		cout << cal(n) << endl;
+	}
+	return 0;
+}
