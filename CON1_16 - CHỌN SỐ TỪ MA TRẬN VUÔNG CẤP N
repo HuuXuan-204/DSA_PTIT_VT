@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int a[10][10];
+int n, k;
+vector< vector<int> > v;
+bool cot[10];
+int sum;
+vector<int> tmp;
+
+void cal(int x){
+    if (x == n){
+        if (sum == k){
+            v.push_back(tmp);
+        }
+        return;
+    }
+    for (int j = 0; j < n; j++){
+        if (!cot[j]){
+            sum += a[x][j];
+            cot[j] = true;
+            tmp.push_back(j + 1); 
+            cal(x + 1);
+            tmp.pop_back();
+            cot[j] = false;
+            sum -= a[x][j];
+        }
+    }
+}
+
+int main(){
+    cin >> n >> k;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> a[i][j];
+
+    memset(cot, false, sizeof(cot));
+    sum = 0;
+    tmp.clear();
+    v.clear();
+
+    cal(0);
+
+    cout << v.size() << endl;
+    for (auto &sol : v){
+        for (int x : sol) cout << x << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
