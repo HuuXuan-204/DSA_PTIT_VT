@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+vector<long long> length(94);
+
+char fibo(int n, int i){
+	if(n == 1) return 'A';
+	if(n == 2) return 'B';
+	if(i<= length[n-2]) fibo(n-2,i);
+	else fibo(n-1,i-length[n-2]);
+}
+int main(){
+	int t; cin >> t;
+	length[1] = 1;
+	length[2] = 1;
+	for(int j=3;j<94;j++) length[j] = length[j-2] + length[j-1];
+	while(t--){
+		int n, i; cin >> n >> i;
+		cout << fibo(n,i) << endl;
+	}
+}
