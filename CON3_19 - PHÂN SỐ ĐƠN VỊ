@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t; cin >> t;
+	while(t--){
+		long long tu, mau; cin >> tu >> mau;
+		while(mau%tu){
+			long long u = mau/tu + 1;
+			cout << "1/" << u << " + ";
+			tu = tu * u - mau;
+			mau = mau * u;
+		}
+		mau = mau / tu;
+		cout << "1/" << mau;
+		cout << endl;
+	}
+}
