@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+void cal(int n, int max, vector<int> &current){
+	if(n == 0){
+		cout << "(";
+		for(int i = 0; i<current.size();i++){
+			cout << current[i];
+			if(i<current.size()-1) cout << " ";
+		}
+		cout << ") ";
+		return;
+	}
+	for(int i = min(n,max);i>=1;i--){
+		current.push_back(i);
+		cal(n-i,i,current);
+		current.pop_back();
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int n; cin >> n;
+		vector<int> current;
+		cal(n,n,current);
+		cout << endl;
+	}
+}
