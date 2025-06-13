@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int a[11];
+int n, k;
+bool check;
+vector<int> v;
+void Try(int j, int &sum){
+	if(sum == k){
+		check = true;
+		cout << "[";
+		for(int i=0;i<v.size();i++){
+			cout << v[i];
+			if(i<v.size()-1) cout << " ";
+		}
+		cout << "] ";
+		return;
+	}
+	for(int i=j;i<n;i++){
+		if(sum+a[i]<=k){
+			sum+= a[i];
+			v.push_back(a[i]);
+			Try(i+1,sum);
+			sum -= a[i];
+			v.pop_back();
+		}
+	}
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		cin >> n >> k;
+		memset(a,0,sizeof(a));
+		for(int i = 0; i<n; i++) cin >> a[i];
+		sort(a,a+n);
+		int sum = 0;
+		check = false;
+		Try(0,sum);
+		if(!check) cout << "-1\n";
+		else cout << endl;
+	}
+}
