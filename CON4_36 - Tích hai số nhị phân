@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long cal(string s){
+	int i = s.size()-1;
+	long long res = 0;
+	int len = s.size();
+	while(i>=0){
+		if(s[i] == '1'){
+			res += 1LL* pow(2,len-i-1);
+		}
+		i--;
+	}
+	return res;
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		string s1, s2;
+		cin >> s1 >> s2;
+		long long temp1 = cal(s1); long long temp2 = cal(s2);
+		cout << temp1 * temp2 << endl;
+	}
+}
