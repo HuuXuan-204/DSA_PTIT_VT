@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, p, s;
+bool nt[201];
+vector<int> v;
+vector<vector<int>> res;
+vector<int> temp;
+
+void sang(){
+    fill(nt, nt + 201, true);
+    nt[0] = nt[1] = false;
+    for(int i = 2; i * i <= 200; ++i){
+        if(nt[i]){
+            for(int j = i * i; j <= 200; j += i)
+                nt[j] = false;
+        }
+    }
+}
+
+void Try(int pos, int k, int sum){
+    if(k == n){
+        if(sum == s){
+            res.push_back(temp);
+        }
+        return;
+    }
+    for(int i = pos; i < v.size(); ++i){
+        if(sum + v[i] <= s){
+            temp.push_back(v[i]);
+            Try(i + 1, k + 1, sum + v[i]);
+            temp.pop_back();
+        }
+    }
+}
+
+int main() {
+    int t; cin >> t;
+    sang();
+    while (t--) {
+        cin >> n >> p >> s;
+        v.clear(); res.clear(); temp.clear();
+        for(int i = p + 1; i <= s; ++i){
+            if(nt[i]) v.push_back(i);
+        }
+        Try(0, 0, 0);
+        cout << res.size() << '\n';
+        for(auto &combi : res){
+            for(int i = 0; i < combi.size(); ++i){
+                cout << combi[i] << (i == combi.size() - 1 ? "\n" : " ");
+            }
+        }
+    }
+}
