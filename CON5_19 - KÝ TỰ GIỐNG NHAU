@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+
+
+int main(){
+	int t; cin >> t;
+	while(t--){
+		cin >> n;
+		int ins, del, copy; cin >> ins >> del >> copy;
+		int dp[n+1]; memset(dp,0,sizeof(dp));
+		dp[1] = ins;
+		for(int i=2;i<=n;i++){
+			dp[i] = dp[i-1]+ins;
+			if(i%2==0){
+				int temp = dp[i/2]+copy;
+				dp[i] = min(dp[i],temp);
+			}else{
+				int temp = dp[(i+1)/2]+copy+del;
+				dp[i] = min(dp[i],temp);
+			}
+		}
+		cout << dp[n] << endl;
+	}
+}
