@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+int cal(int n, int k){
+	if(n==1) return 1;
+	int mid = 1 << (n-1);
+	if(k==mid) return n;
+	else if(k<mid) cal(n-1,k);
+	else cal(n-1,k-mid);
+}
+int main(){
+	int t; cin >> t;
+	while(t--){
+		int n, k; cin >> n >> k;
+		cout << cal(n,k) << endl;
+	}
+}
