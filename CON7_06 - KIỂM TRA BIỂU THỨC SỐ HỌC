@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool check(string s){
+	stack<char> stk;
+	for(int i=0;i<s.size();i++){
+		if(s[i] == ')'){
+			bool hasOper = false;
+			char top = stk.top(); stk.pop();
+			while(!stk.empty() && top != '('){
+				if(top == '+' || top == '-' || top == '*' || top == '/'){
+					hasOper = true;
+				}
+				top = stk.top(); stk.pop();
+			}
+			if(!hasOper) return true;
+		}else{
+			stk.push(s[i]);
+		}
+	}
+	return false;
+}
+int main(){
+	int t; cin >> t;
+	cin.ignore();
+	while(t--){
+		string a; getline(cin,a);
+		stringstream ss(a);
+		string temp;
+		string s="";
+		while(ss >> temp){
+			s+=temp;
+		}
+		if(check(s)) cout << "Yes\n";
+		else cout << "No\n";
+	}
+}
